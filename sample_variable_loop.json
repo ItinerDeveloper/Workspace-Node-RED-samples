@@ -1,0 +1,146 @@
+[
+    {
+        "id": "8cbbc0f70f2cfc8f",
+        "type": "tab",
+        "label": "sample_variable_loop",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a3928ac8166cc80c",
+        "type": "inject",
+        "z": "8cbbc0f70f2cfc8f",
+        "name": "Inject export payload",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"EventId\":\"0a2c6ef7-da80-44d1-92f0-5773b20c5ed3\",\"Reference\":\"sample\",\"ItinerTemplateId\":\"85a24296-4eca-ee11-9db9-00155d3ed31a\",\"ItinerTemplateName\":\"ExportFileTest\",\"ItinerTemplateUniqueName\":\"T689\",\"ItinerId\":\"d4009aa4-51ca-ee11-9db9-00155d3ed31a\",\"ItinerUniqueName\":\"T689-1\",\"ItinerTitle\":\"ExportFileTest\",\"ItinerManagerId\":1,\"ItinerManagerName\":\"Administrator\",\"ItinerStartDateTime\":\"2024-02-13T09:24:11.7030000Z\",\"ItinerInstanceId\":\"5ac8e1ac-51ca-ee11-9db9-00155d3ed31a\",\"ItinerVariables\":[{\"Name\":\"String\",\"DataType\":1,\"ValueString\":\"test\"},{\"Name\":\"Number\",\"DataType\":2,\"ValueInt\":2},{\"Name\":\"Date\",\"DataType\":4,\"ValueDateTime\":\"2024-01-01T08:01:23.0730000Z\"}]}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "4ef11cb84df9b1aa"
+            ]
+        ]
+    },
+    {
+        "id": "4f88c7d00559c017",
+        "type": "array-loop",
+        "z": "8cbbc0f70f2cfc8f",
+        "name": "Loop msg.array",
+        "key": "al61b48528120df97b",
+        "keyType": "msg",
+        "reset": false,
+        "resetValue": "value-null",
+        "array": "array",
+        "arrayType": "msg",
+        "x": 540,
+        "y": 120,
+        "wires": [
+            [
+                "341b700ff740a962"
+            ],
+            [
+                "d07b93cbd54f8994"
+            ]
+        ]
+    },
+    {
+        "id": "341b700ff740a962",
+        "type": "function",
+        "z": "8cbbc0f70f2cfc8f",
+        "name": "Loop end",
+        "func": "node.warn(\"Loop end\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d07b93cbd54f8994",
+        "type": "change",
+        "z": "8cbbc0f70f2cfc8f",
+        "name": "Set name",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Name",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 120,
+        "wires": [
+            [
+                "4f88c7d00559c017",
+                "b9706d9ad8d4879c"
+            ]
+        ]
+    },
+    {
+        "id": "b9706d9ad8d4879c",
+        "type": "debug",
+        "z": "8cbbc0f70f2cfc8f",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "4ef11cb84df9b1aa",
+        "type": "change",
+        "z": "8cbbc0f70f2cfc8f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "array",
+                "pt": "msg",
+                "to": "payload.ItinerVariables",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 120,
+        "wires": [
+            [
+                "4f88c7d00559c017"
+            ]
+        ]
+    }
+]
